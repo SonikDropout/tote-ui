@@ -3,8 +3,6 @@ const url = require('url');
 const electron = require('electron');
 const translator = require('./utils/translations');
 const serialMock = require('./utils/DataGenerator');
-const EventEmitter = require('events');
-const { randInt } = require('./utils/numagic');
 const { app, BrowserWindow, ipcMain } = electron;
 
 let win, serial;

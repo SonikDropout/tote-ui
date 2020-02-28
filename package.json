@@ -45,5 +45,14 @@
       "mjs",
       "json"
     ]
+  },
+  "prettier": {
+    "svelteSortOrder": "scripts-markup-styles",
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "chart.js": "^2.9.3",
+    "chartjs-plugin-zoom": "^0.7.5"
   }
 }

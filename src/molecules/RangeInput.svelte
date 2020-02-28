@@ -1,27 +1,44 @@
 <script>
-  export let max = 100;
-  export let min = 0;
-  export let value = 0;
+  export let range = [0, 100];
+  export let disabled;
+  export let onChange;
+  export let name;
+  export let defaultValue = range[0];
 
-  let input,
+  let step = 1;
+
+  $: min = Math.min.apply(null, range);
+  $: max = Math.max.apply(null, range);
+  $: diff = max - min;
+  $: value = defaultValue;
+
+  $: {
+    if (diff < 1) step = 0.01;
+    if (diff < 10) step = 0.1;
+  }
+
+  let input = { value: range[0] },
     timeout,
     interval,
-    container,
     showControls = false;
 
   function increment() {
-    if (input) input.stepUp();
+    if (value + step <= max) {
+      value = +(value + step).toPrecision(3);
+    }
   }
 
   function decrement() {
-    if (input) input.stepDown();
+    if (value - step >= min) {
+      value = +(value - step).toPrecision(3);
+    }
   }
 
   function stickyCall(fn) {
     fn();
     timeout = setTimeout(() => {
       fn();
-      interval = setInterval(fn, 100);
+      interval = setInterval(fn, 50);
     }, 500);
   }
 
@@ -36,63 +53,64 @@
   function release() {
     if (timeout) clearTimeout(timeout);
     if (interval) clearInterval(interval);
+    onChange(value, name);
   }
 </script>
 
+<span class="input-wrapper" class:disabled>
+  <button
+    disabled={value <= min || disabled}
+    class="decrementer"
+    on:pointerdown={pressDecrement}
+    on:pointerup={release}>
+    <span>-</span>
+  </button>
+  <span class="input">{value}</span>
+  <button
+    disabled={value >= max || disabled}
+    class="incrementer"
+    on:pointerdown={pressIncrement}
+    on:pointerup={release}>
+    <span>+</span>
+  </button>
+</span>
+
 <style>
-  label {
-    display: flex;
-    align-items: center;
-  }
   .input-wrapper {
     width: 16rem;
     border-radius: 4px;
-    border: 1px solid var(--corporate-blue-darken);
+    border: 1px solid var(--corporate-blue);
     height: 3.2rem;
     line-height: 3.2rem;
     display: flex;
+    overflow: hidden;
   }
-  input {
+  .input-wrapper.disabled {
+    opacity: 0.6;
+  }
+  .input {
     flex-grow: 1;
     padding: 0 1rem;
     border: none;
     font-size: 2rem;
     text-align: center;
-    border-left: 1px solid;
-    border-right: 1px solid;
-    border-color: var(--corporate-blue-darken);
-  }
-  input::-webkit-inner-spin-button,
-  input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+    display: inline-block;
   }
   button {
     border: none;
     background-color: transparent;
-    width: 4rem;
-    font-size: 3.2rem;
-    line-height: 0.8;
+    width: 3.2rem;
+    font-size: 2.4rem;
+    line-height: 3.2rem;
     font-weight: 300;
+    outline: none;
+    background-color: var(--corporate-blue);
+    color: var(--bg-color);
+  }
+  button:focus {
+    outline: none;
+  }
+  button:disabled {
+    opacity: 0.5;
   }
 </style>
-
-<label bind:this={container}>
-  <span>
-    <slot />
-  </span>
-  <span class="input-wrapper">
-    <button
-      class="incrementer"
-      on:pointerdown={pressDecrement}
-      on:pointerup={release}>
-      -
-    </button>
-    <input type="number" bind:this={input} {value} {min} {max} on:change />
-    <button
-      class="decrementer"
-      on:pointerdown={pressIncrement}
-      on:pointerup={release}>
-      +
-    </button>
-  </span>
-</label>

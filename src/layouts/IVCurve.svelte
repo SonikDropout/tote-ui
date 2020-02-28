@@ -1,29 +1,41 @@
 <script>
-  import Chart from "../organisms/Chart/index";
-  import Button from "../atoms/Button";
-  export let switchPage;
+  import Chart from 'chart.js';
+  import zoom from 'chartjs-plugin-zoom';
+  import Button from '../atoms/Button';
+  import { onMount } from 'svelte';
+  import { points } from '../stores';
+  import config from './chart.config';
+  export let switchPage, chart;
+
+  onMount(() => {
+    chart = new Chart(
+      document.getElementById('chart').getContext('2d'),
+      config
+    );
+    chart.options.onClick = chart.resetZoom();
+    chart.data.datasets[0].data = $points;
+  });
 
   function startDrawing() {
     // pass
   }
 </script>
 
-<style>
-  main {
-    padding: 0 48px;
-  }
-  main :global(.chart) {
-    width: 100%;
-    height: 100%;
-  }
-</style>
-
 <div class="layout">
   <header>Вольт-амперная характеристика</header>
   <main>
-    <Chart xCaption="I, A" yCaption="U, B" />
+    <canvas width="800" height="440" id="chart" />
   </main>
   <footer>
     <Button on:click={() => switchPage('dash')}>Назад</Button>
   </footer>
 </div>
+
+<style>
+  main {
+    padding: 0 48px;
+  }
+  #chart {
+    margin: auto;
+  }
+</style>

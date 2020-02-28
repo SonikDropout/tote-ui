@@ -14,7 +14,7 @@
     width: 200vw;
   }
   .IVC {
-    transform: translateX(100vh);
+    transform: translateX(-100vw);
   }
 </style>
 

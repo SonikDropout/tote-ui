@@ -31,6 +31,13 @@ const DATA = {
   cellVoltage: {
     label: 'Напряжение',
     units: 'В',
+    symbol: 'U',
+    pos: 1,
+  },
+  cellCurrent: {
+    label: 'Ток',
+    units: 'А',
+    symbol: 'I',
     pos: 1,
   },
   cellTemp: {
@@ -51,5 +58,5 @@ const FUELS = [
 
 module.exports = {
   DATA, 
-  FUELS
+  FUELS,
 }
