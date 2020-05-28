@@ -2,6 +2,7 @@
   export let className;
   export let disabled;
   export let name;
+  export let style;
 </script>
 
 <style>
@@ -34,6 +35,6 @@
   }
 </style>
 
-<button {disabled} class={className} {name} on:click>
+<button {disabled} {style} class={className} {name} on:click>
   <slot />
 </button>

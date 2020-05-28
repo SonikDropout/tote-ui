@@ -5,6 +5,7 @@
   import { onMount } from 'svelte';
   import { points } from '../stores';
   import config from './chart.config';
+  import SaveButton from '../organisms/SaveButton'
   export let switchPage, chart;
 
   onMount(() => {
@@ -19,15 +20,21 @@
   function startDrawing() {
     // pass
   }
+
+  function clearChart() {
+
+  }
 </script>
 
 <div class="layout">
   <header>Вольт-амперная характеристика</header>
   <main>
-    <canvas width="800" height="440" id="chart" />
+    <canvas height="130" id="chart" />
   </main>
   <footer>
     <Button on:click={() => switchPage('dash')}>Назад</Button>
+    <SaveButton style="margin-left: auto; margin-right: 1.6rem;" />
+    <Button on:click={clearChart}>Сброс</Button>
   </footer>
 </div>
 
@@ -37,5 +44,9 @@
   }
   #chart {
     margin: auto;
+  }
+  footer {
+    display: flex;
+    align-items: center;
   }
 </style>

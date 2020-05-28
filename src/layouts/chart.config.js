@@ -9,7 +9,6 @@ module.exports = {
     ],
   },
   options: {
-    responsive: false,
     elements: {
       point: {
         radius: 0,

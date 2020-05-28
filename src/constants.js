@@ -49,10 +49,12 @@ const DATA = {
 
 const FUELS = [
   {
-    label: 'H<sub>2</sup>',
+    label: 'Водород',
+    value: 0,
   },
   {
-    label: 'C<sub>4</sub>H<sub>10</sub> + С<sub>3</sub>H<sub>8</sub>',
+    label: 'Пропан-бутан',
+    value: 1,
   },
 ];
 

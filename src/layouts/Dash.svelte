@@ -31,7 +31,7 @@
       <figcaption>Топливо</figcaption>
     </figure>
     <div class="params">
-      <RadioGroup group={fuels} type="horizontal" />
+      <RadioGroup group={fuels}/>
       <span class="label">
         {DATA.fuelConsumption.label}, {DATA.fuelConsumption.units}
       </span>
