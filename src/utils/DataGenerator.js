@@ -1,19 +1,19 @@
 const EventEmitter = require('events');
 const { randInt } = require('./numagic');
+const { DATA } = require('../constants');
 
 const generator = new EventEmitter();
-let data = Array(10)
-  .fill(0)
-  .map(() => randInt(800));
+let data = JSON.parse(JSON.stringify(DATA));
+for (let key in data) data[key] = randInt(0, 100);
 
 function updateData(d) {
-  return d.map((v) => v + randInt(-5, 5));
+  for (let key in data) data[key] += randInt(-5, 5);
 }
 
-setInterval(emitValues, 200);
+setInterval(emitValues, 1000);
 
 function emitValues() {
-  data = updateData(data);
+  updateData(data);
   generator.emit('data', data);
 }
 

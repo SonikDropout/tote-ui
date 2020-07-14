@@ -27,8 +27,7 @@ function reloadOnChange(win) {
 
 function initPeripherals() {
   removeListeners();
-  if (isPi) initRpiPeripherals();
-  else mockPeripherals();
+  serial = require(`./utils/${isPi ? 'serial' : 'DataGenerator'}`)
   addPeripheralsListeners();
 }
 
@@ -36,19 +35,8 @@ function removeListeners() {
   if (serial) serial.removeAllListeners();
 }
 
-function initRpiPeripherals() {
-  serial = require('./utils/Serial');
-}
-
-function mockPeripherals() {
-  serial = serialMock;
-  serialMock.once('data', serial.emit.bind(serial, 'connected'));
-}
-
 function addPeripheralsListeners() {
-  serial.once('connected', () => win.webContents.send('btConnected'))
-    .on('data', (data) => win.webContents.send('btData', data))
-    .on('error', (error) => win.webContents.send('error', error));
+  serial.on('data', (data) => win.webContents.send('btData', data));
 }
 
 function launch() {
@@ -76,7 +64,7 @@ function launch() {
 
   const watcher = reloadOnChange(win);
 
-  win.on('closed', function() {
+  win.on('closed', function () {
     removeListeners();
     win = null;
     watcher.close();
