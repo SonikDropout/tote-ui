@@ -2,10 +2,13 @@ const path = require('path');
 const url = require('url');
 const electron = require('electron');
 const translator = require('./utils/translations');
-const serialMock = require('./utils/DataGenerator');
 const { app, BrowserWindow, ipcMain } = electron;
+const { DATA } = require('./constants');
 
 let win, serial;
+
+let initialData = JSON.parse(JSON.stringify(DATA));
+for (let key in initialData) initialData[key] = 0;
 
 const mode = process.env.NODE_ENV;
 const isPi = process.platform === 'linux' && process.arch === 'arm';
@@ -27,8 +30,14 @@ function reloadOnChange(win) {
 
 function initPeripherals() {
   removeListeners();
-  serial = require(`./utils/${isPi ? 'serial' : 'DataGenerator'}`)
+  serial = require(`./utils/${isPi ? 'serial' : 'DataGenerator'}`);
   addPeripheralsListeners();
+  listenRenderer();
+}
+
+function listenRenderer() {
+  ipcMain.on('serialCommand', (e, cmd) => serial.sendCommand(cmd));
+  ipcMain.on('initialDataRequest', (e) => (e.returnValue = initialData));
 }
 
 function removeListeners() {
@@ -36,7 +45,8 @@ function removeListeners() {
 }
 
 function addPeripheralsListeners() {
-  serial.on('data', (data) => win.webContents.send('btData', data));
+  serial.on('data', (data) => win.webContents.send('serialData', data));
+  serial.once('data', (data) => (initialData = data));
 }
 
 function launch() {

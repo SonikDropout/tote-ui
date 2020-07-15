@@ -1,5 +1,5 @@
 const fs = require('fs');
-const settings = require('../../settings.json');
+const settings = require('../../config.json');
 const translations = require(`../../locale/${settings.locale || 'ru'}.json`);
 
 module.exports = {

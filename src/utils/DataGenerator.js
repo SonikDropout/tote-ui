@@ -17,4 +17,6 @@ function emitValues() {
   generator.emit('data', data);
 }
 
+generator.sendCommand = console.log.bind(console, 'Recieved command:')
+
 module.exports = generator;

@@ -3,8 +3,9 @@
   import Button from '../atoms/Button';
   import RadioGroup from '../molecules/RadioGroup';
   export let switchPage;
-  import { FUELS, DATA } from '../constants';
+  import { FUELS, DATA, COMMANDS } from '../constants';
   import { data } from '../stores';
+  import { ipcRenderer } from 'electron';
   const fuels = FUELS.reduce(
     (a, f) => {
       a.elements.push(f);
@@ -13,12 +14,22 @@
     { name: 'fuels', elements: [] }
   );
 
-  function changeAirFlow(e) {
-    // pass
+  const initialState = $data;
+
+  function setFuelType(e) {
+    ipcRenderer.send('serialCommand', COMMANDS.setFuelType(+e.target.value));
   }
 
-  function changeCellTemp(e) {
-    // pass
+  function changeRiformerFlow(flow) {
+    ipcRenderer.send('serialCommand', COMMANDS.setRiformerFlow(flow));
+  }
+
+  function changeBurnerFlow(flow) {
+    ipcRenderer.send('serialCommand', COMMANDS.setBurnerFlow(flow));
+  }
+
+  function changeCellTemp(temp) {
+    ipcRenderer.send('serialCommand', COMMANDS.setCellTemp(temp));
   }
 </script>
 
@@ -31,11 +42,11 @@
       <figcaption>Топливо</figcaption>
     </figure>
     <div class="params">
-      <RadioGroup group={fuels}/>
+      <RadioGroup group={fuels} on:change={setFuelType} />
       <span class="label">
         {DATA.fuelConsumption.label}, {DATA.fuelConsumption.units}
       </span>
-      <strong>{$data[DATA.fuelConsumption.pos]}</strong>
+      <strong>{$data.fuelConsumption}</strong>
     </div>
 
     <figure>
@@ -45,17 +56,18 @@
     <div class="params">
       <div class="param">
         <span class="label">
-          {DATA.reformerTemp.label}, {DATA.reformerTemp.units}
+          {DATA.riformerTemp.label}, {DATA.riformerTemp.units}
         </span>
-        <strong>{$data[DATA.reformerTemp.pos]}</strong>
+        <strong>{$data.riformerTemp}</strong>
       </div>
       <div class="param">
         <span class="label">
-          {DATA.reformerAirFlow.label}, {DATA.reformerAirFlow.units}
+          {DATA.riformerAirFlow.label}, {DATA.riformerAirFlow.units}
         </span>
         <RangeInput
-          on:change={changeAirFlow}
-          value={$data[DATA.reformerAirFlow.pos]} />
+          defaultValue={initialState.riformerAirFlow}
+          onChange={changeRiformerFlow}
+          value={$data.riformerAirFlow} />
       </div>
     </div>
 
@@ -66,17 +78,18 @@
     <div class="params">
       <div class="param">
         <span class="label">
-          {DATA.reformerTemp.label}, {DATA.reformerTemp.units}
+          {DATA.riformerTemp.label}, {DATA.riformerTemp.units}
         </span>
-        <strong>{$data[DATA.reformerTemp.pos]}</strong>
+        <strong>{$data.riformerTemp}</strong>
       </div>
       <div class="param">
         <span class="label">
           {DATA.burnerAirFlow.label}, {DATA.burnerAirFlow.units}
         </span>
         <RangeInput
-          on:change={changeAirFlow}
-          value={$data[DATA.burnerAirFlow.pos]} />
+          defaultValue={initialState.burnerAirFlow}
+          onChange={changeBurnerFlow}
+          value={$data.burnerAirFlow} />
       </div>
     </div>
 
@@ -86,18 +99,20 @@
         <span class="label">
           {DATA.cellVoltage.label}, {DATA.cellVoltage.units}
         </span>
-        <strong>{$data[DATA.cellVoltage.pos]}</strong>
+        <strong>{$data.cellVoltage}</strong>
       </div>
       <div id="cellTemp">
         <span class="label">{DATA.cellTemp.label}, {DATA.cellTemp.units}</span>
         <RangeInput
-          on:change={changeCellTemp}
-          value={$data[DATA.cellTemp.pos]} />
+          defaultValue={initialState.cellTemp}
+          step={0.1}
+          onChange={changeCellTemp}
+          value={$data.cellTemp} />
       </div>
       <Button on:click={() => switchPage('IVC')}>Строить ВАХ</Button>
     </div>
   </main>
-  <footer></footer>
+  <footer />
 </div>
 
 <style>

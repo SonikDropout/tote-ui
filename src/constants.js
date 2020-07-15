@@ -29,7 +29,7 @@ const DATA = {
     pos: 6,
     bytes: 2,
   },
-  reformerTemp: {
+  riformerTemp: {
     label: 'Температура',
     units: '\u02daC',
     pos: 8,
@@ -41,7 +41,7 @@ const DATA = {
     pos: 10,
     bytes: 2,
   },
-  reformerAirFlow: {
+  riformerAirFlow: {
     label: 'Поток воздуха',
     units: '%',
     pos: 12,
@@ -71,8 +71,22 @@ const FUELS = [
   },
 ];
 
+const COMMANDS = {
+  setFuelType: (v) => [4, v],
+  setRiformerFlow: (v) => [8, v],
+  setBurnerFlow: (v) => [12, v],
+  getIV: () => [16, 0],
+  setCellTemp: (v) => [20, (v / 10) | 0],
+};
+
+const CONSTRAINTS = {
+  cellTemp: [0, 100],
+};
+
 module.exports = {
   DIVIDERS,
   DATA,
   FUELS,
+  COMMANDS,
+  CONSTRAINTS,
 };
