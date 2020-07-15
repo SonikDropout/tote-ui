@@ -107,7 +107,13 @@
         <strong>{$data.cellVoltage}</strong>
       </div>
       <div id="cellTemp">
-        <span class="label">{DATA.cellTemp.label}, {DATA.cellTemp.units}</span>
+        <span class="label">
+          {DATA.cellTemp.label}, {DATA.cellTemp.units}
+        </span>
+        <strong>{$data.cellTemp}</strong>
+      </div>
+      <div id="cellTempInput">
+        <span class="label">Установка температуры</span>
         <RangeInput
           defaultValue={initialState.cellTemp}
           step={0.1}
