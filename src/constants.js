@@ -63,6 +63,24 @@ const DATA = {
     pos: 14,
     bytes: 1,
   },
+  cellLoad: {
+    label: 'Загрузка нагревателя ячейки',
+    units: '%',
+    pos: 15,
+    bytes: 1,
+  },
+  riformerLoad: {
+    label: 'Загрузка нагревателя риформера',
+    units: '%',
+    pos: 16,
+    bytes: 1,
+  },
+  burnerLoad: {
+    label: 'Загрузка нагревателя дожигателя',
+    units: '%',
+    pos: 17,
+    bytes: 1,
+  },
 };
 
 const FUELS = [
