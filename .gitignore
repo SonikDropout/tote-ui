@@ -4,3 +4,4 @@ doc/carcontroller
 dist
 *.map
 config.json
+logs
