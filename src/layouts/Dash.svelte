@@ -34,7 +34,7 @@
 
   function getIVC() {
     switchPage('IVC');
-    ipcRenderer.send('serialCommand', COMMANDS.getIV);
+    ipcRenderer.send('serialCommand', COMMANDS.getIV());
   }
 </script>
 
