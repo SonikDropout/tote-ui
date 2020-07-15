@@ -31,6 +31,11 @@
   function changeCellTemp(temp) {
     ipcRenderer.send('serialCommand', COMMANDS.setCellTemp(temp));
   }
+
+  function getIVC() {
+    switchPage('IVC');
+    ipcRenderer.send('serialCommand', COMMANDS.getIV);
+  }
 </script>
 
 <div class="layout">
@@ -109,7 +114,7 @@
           onChange={changeCellTemp}
           value={$data.cellTemp} />
       </div>
-      <Button on:click={() => switchPage('IVC')}>Строить ВАХ</Button>
+      <Button on:click={getIVC}>Строить ВАХ</Button>
     </div>
   </main>
   <footer />

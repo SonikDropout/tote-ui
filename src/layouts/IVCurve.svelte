@@ -3,26 +3,45 @@
   import zoom from 'chartjs-plugin-zoom';
   import Button from '../atoms/Button';
   import { onMount } from 'svelte';
-  import { points } from '../stores';
+  import { data } from '../stores';
   import config from './chart.config';
-  import SaveButton from '../organisms/SaveButton'
+  import SaveButton from '../organisms/SaveButton';
+  import { ipcRenderer } from 'electron';
   export let switchPage, chart;
+
+  let points = [],
+    isActive;
 
   onMount(() => {
     chart = new Chart(
       document.getElementById('chart').getContext('2d'),
       config
     );
-    chart.options.onClick = chart.resetZoom();
-    chart.data.datasets[0].data = $points;
+    chart.options.onClick = chart.resetZoom;
+    chart.data.datasets[0].data = points;
+    monitorData();
   });
 
-  function startDrawing() {
-    // pass
+  function monitorData() {
+    data.subscribe(data => {
+      if (data.cellCurrent) {
+        if (!isActive) startDrawing();
+        addPoint({ x: data.cellVoltage, y: data.cellCurrent });
+      } else if (isActive) isActive = false;
+    });
   }
 
-  function clearChart() {
+  function addPoint(p) {
+    ipcRenderer.send('logRow', [p.x, p.y]);
+    points.push(p);
+    chart.update();
+  }
 
+  function startDrawing() {
+    isActive = true;
+    points = [];
+    chart.data.datasets[0].data = points;
+    ipcRenderer.send('startLog', ['U, B', 'I, A']);
   }
 </script>
 
@@ -34,7 +53,6 @@
   <footer>
     <Button on:click={() => switchPage('dash')}>Назад</Button>
     <SaveButton style="margin-left: auto; margin-right: 1.6rem;" />
-    <Button on:click={clearChart}>Сброс</Button>
   </footer>
 </div>
 

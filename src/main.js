@@ -2,6 +2,7 @@ const path = require('path');
 const url = require('url');
 const electron = require('electron');
 const translator = require('./utils/translations');
+const logger = require('./utils/logger');
 const { app, BrowserWindow, ipcMain } = electron;
 const { DATA } = require('./constants');
 
@@ -38,6 +39,12 @@ function initPeripherals() {
 function listenRenderer() {
   ipcMain.on('serialCommand', (e, cmd) => serial.sendCommand(cmd));
   ipcMain.on('initialDataRequest', (e) => (e.returnValue = initialData));
+  ipcMain.on('saveFile', (e) =>
+    logger.saveFile(usbPath, e.reply.bind(e, 'fileSaved'))
+  );
+  ipcMain.on('logRow', (e, row) => logger.writeRow(row));
+  ipcMain.on('startLog', (e, headers) => logger.createFile(headers))
+  ipcMain.on('clearLog', logger.clear)
 }
 
 function removeListeners() {
