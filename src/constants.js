@@ -23,13 +23,13 @@ const DATA = {
     bytes: 2,
   },
   fuelConsumption: {
-    label: 'Расход',
+    label: 'Расход топлива',
     units: 'мл/мин',
     pos: 4,
     bytes: 2,
   },
   cellTemp: {
-    label: 'Температура',
+    label: 'Температура ячейки',
     units: '\u02daC',
     pos: 6,
     bytes: 2,
@@ -99,7 +99,7 @@ const COMMANDS = {
   setRiformerFlow: (v) => [8, v],
   setBurnerFlow: (v) => [12, v],
   getIV: () => [16, 0],
-  setCellTemp: (v) => [20, (v / 10) | 0],
+  setCellTemp: (v) => [20, (v * 10) | 0],
 };
 
 const CONSTRAINTS = {

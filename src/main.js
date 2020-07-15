@@ -31,7 +31,7 @@ function reloadOnChange(win) {
 
 function initPeripherals() {
   removeListeners();
-  serial = require(`./utils/${isPi ? 'serial' : 'serial'}`);
+  serial = require(`./utils/${isPi ? 'serial' : 'DataGenerator'}`);
   addPeripheralsListeners();
   listenRenderer();
 }
