@@ -29,6 +29,7 @@ module.exports = {
   },
   clear() {
     this.ws.end();
+    this.ws = null;
   },
   async _getFileID() {
     const logs = await fs.promises.readdir(this.logsDir);

@@ -1,5 +1,5 @@
 const Serial = require('serialport');
-const { PORT, SEPARATORS } = require('../constants');
+const { PORT, DIVIDERS } = require('../constants');
 const EventEmitter = require('events');
 const parse = require('./parser');
 
@@ -12,7 +12,7 @@ let buffer = Buffer.from([]);
 
 function handleData(buf) {
   if (buf.toString('ascii').startsWith('ok')) buf = buf.slice(2);
-  idx = buf.indexOf(SEPARATORS);
+  idx = buf.indexOf(DIVIDERS);
   if (idx != -1) {
     buffer = Buffer.concat([buffer, buf.slice(0, idx)]);
     try {
