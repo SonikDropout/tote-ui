@@ -1,3 +1,8 @@
+const PORT = {
+  name: process.platform === 'linux' && process.arch === 'arm' ? '/dev/ttyS0' : 'COM5',
+  baudRate: 230400,
+};
+
 const DIVIDERS = Buffer.alloc(4);
 DIVIDERS.writeUInt16BE(7581);
 DIVIDERS.writeUInt16BE(8887, 2);
@@ -84,6 +89,7 @@ const CONSTRAINTS = {
 };
 
 module.exports = {
+  PORT,
   DIVIDERS,
   DATA,
   FUELS,
