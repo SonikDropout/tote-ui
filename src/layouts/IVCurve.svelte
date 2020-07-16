@@ -8,7 +8,7 @@
   import SaveButton from '../organisms/SaveButton';
   import RangeInput from '../molecules/RangeInput';
   import { ipcRenderer } from 'electron';
-  import { DATA, COMMANDS } from '../constants';
+  import { DATA, COMMANDS, CONSTRAINTS } from '../constants';
   export let chart;
 
   const displayedParams = [
@@ -78,7 +78,8 @@
         <span class="label">Установка температуры: </span>
         <RangeInput
           defaultValue={initialState.cellTemp}
-          step={0.1}
+          step={10}
+          range={CONSTRAINTS.cellTemp}
           onChange={changeCellTemp}
           value={$data.cellTemp} />
       </div>
