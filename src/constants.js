@@ -1,5 +1,8 @@
 const PORT = {
-  name: process.platform === 'linux' && process.arch === 'arm' ? '/dev/ttyS0' : 'COM5',
+  name:
+    process.platform === 'linux' && process.arch === 'arm'
+      ? '/dev/ttyS0'
+      : 'COM5',
   baudRate: 230400,
 };
 
@@ -12,73 +15,88 @@ const DATA = {
     label: 'Напряжение',
     units: 'мВ',
     symbol: 'U',
-    pos: 0,
+
     bytes: 2,
   },
   cellCurrent: {
     label: 'Ток',
     units: 'мА',
     symbol: 'I',
-    pos: 4,
+
     bytes: 2,
   },
   fuelConsumption: {
     label: 'Расход топлива',
     units: 'мл/мин',
-    pos: 6,
+
     bytes: 2,
   },
   cellTemp: {
     label: 'Температура ячейки',
     units: '\u02daC',
-    pos: 8,
+
     bytes: 2,
   },
   riformerTemp: {
     label: 'Температура',
     units: '\u02daC',
-    pos: 10,
+
     bytes: 2,
   },
   burnerTemp: {
     label: 'Температура',
     units: '\u02daC',
-    pos: 12,
+
+    bytes: 2,
+  },
+  setCellTemp: {
+    label: 'Установка температуры ячейки',
+    units: '\u02daC',
+    bytes: 2,
+  },
+  setRiformerTemp: {
+    label: 'Установка температуры риформера',
+    units: '\u02daC',
+    bytes: 2,
+  },
+  setBurnerTemp: {
+    label: 'Установка температуры дожигателя',
+    units: '\u02daC',
     bytes: 2,
   },
   riformerAirFlow: {
     label: 'Поток воздуха',
     units: '%',
-    pos: 14,
+
     bytes: 1,
   },
   burnerAirFlow: {
     label: 'Поток воздуха',
     units: '%',
-    pos: 15,
+
     bytes: 1,
   },
   fuel: {
     label: 'Топливо',
-    pos: 16,
+
     bytes: 1,
   },
   cellLoad: {
     label: 'Загрузка нагревателя ячейки',
     units: '%',
-    pos: 17,
+
     bytes: 1,
   },
   riformerLoad: {
     label: 'Загрузка нагревателя риформера',
     units: '%',
-    pos: 18,
+
     bytes: 1,
   },
   burnerLoad: {
     label: 'Загрузка нагревателя дожигателя',
     units: '%',
-    pos: 19,
+
     bytes: 1,
   },
 };
