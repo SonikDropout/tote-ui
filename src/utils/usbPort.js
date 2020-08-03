@@ -1,6 +1,6 @@
 const usbDetect = require('usb-detection');
 const EventEmitter = require('events');
-const { debounce } = require('./others');
+const { debounce } = require('./async');
 const { exec } = require('child_process');
 
 const usbPort = new EventEmitter();
