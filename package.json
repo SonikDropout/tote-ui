@@ -56,5 +56,12 @@
     "chartjs-plugin-zoom": "^0.7.5",
     "serialport": "^9.0.0",
     "usb-detection": "^4.9.0"
+  },
+  "build": {
+    "directories": {},
+    "linux": {
+      "executableName": "MicroTubes",
+      "category": "education"
+    }
   }
 }
