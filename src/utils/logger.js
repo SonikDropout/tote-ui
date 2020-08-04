@@ -4,6 +4,7 @@ const path = require('path');
 
 module.exports = {
   logsDir: path.join(homedir, 'tote-ui', 'logs'),
+  fileName: 'MicroTubes.tsv',
   async createFile(headers) {
     if (this.ws) this.clear();
     await this._createDir();
