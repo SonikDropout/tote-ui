@@ -98,7 +98,7 @@
     <Button on:click={getIVC} style="margin-left: auto; margin-right: 1.6rem;">
       Снять ВАХ
     </Button>
-    <SaveButton />
+    <SaveButton disabled={!points.length && !isActive} />
   </footer>
 </div>
 
