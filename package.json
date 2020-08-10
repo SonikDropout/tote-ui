@@ -10,7 +10,7 @@
     "electron-dev": "cross-env NODE_ENV=development electron .",
     "electron-test": "cross-env NODE_ENV=test electron .",
     "el-build": "electron-builder --dir --linux --armv7l",
-    "build": "run-s wp-bulid el-build",
+    "build": "run-s wp-build el-build",
     "test": "jest",
     "postinstall": "electron-builder install-app-deps"
   },
