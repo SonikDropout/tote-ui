@@ -1,7 +1,6 @@
 const path = require('path');
 const url = require('url');
 const electron = require('electron');
-const translator = require('./utils/translations');
 const logger = require('./utils/logger');
 const usbPort = require('./utils/usbPort');
 const { app, BrowserWindow, ipcMain } = electron;
@@ -86,7 +85,6 @@ function launch() {
     })
   );
 
-  translator.init({ win });
   initPeripherals();
 
   const watcher = reloadOnChange(win);
