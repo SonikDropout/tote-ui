@@ -1,14 +1,17 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 const mode = process.env.NODE_ENV || 'development';
+const prod = mode === 'production';
 
 module.exports = {
   entry: './src/renderer.js',
   output: {
     filename: 'renderer.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'static'),
   },
   resolve: {
+    // see below for an explanation
     alias: {
       svelte: path.resolve('node_modules', 'svelte'),
     },
@@ -29,25 +32,14 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [prod ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader'],
       },
-      {
-        test: /\.(svg|jpg|png)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
-          },
-        ],
-      }
     ],
   },
   externals: [
     function(context, request, callback) {
       if (
-        /^path|fs|events|electron|drivelist|excel4node|usb-detection|pigpio|@abandonware\/noble|crypto|bindings$/.test(
+        /^path|fs|events|serialport|electron|drivelist|excel4node|usb-detection$/.test(
           request
         )
       ) {
@@ -56,5 +48,11 @@ module.exports = {
       callback();
     },
   ],
+  target: "electron-renderer",
+  plugins: [
+		new MiniCssExtractPlugin({
+			filename: 'svelte.css'
+		})
+	],
   mode,
 };

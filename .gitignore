@@ -1,7 +1,8 @@
 node_modules
 ~*
-doc/carcontroller
 dist
 *.map
 config.json
 logs
+static/renderer.js
+static/svelte.css
