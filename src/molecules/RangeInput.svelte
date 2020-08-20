@@ -18,7 +18,7 @@
     onChange(min, name);
     defaultValue = min;
   }
-  $: value = defaultValue;
+  $: value = ((defaultValue / step) | 0) * step;
   $: precision = -Math.min(0, +step.toExponential().split('e')[1]);
 
   let timeout,

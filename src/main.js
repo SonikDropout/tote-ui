@@ -46,6 +46,7 @@ function listenRenderer() {
   ipcMain.on('startLog', (e, headers) => logger.createFile(headers));
   ipcMain.on('clearLog', logger.clear);
   ipcMain.on('usbStorageRequest', usbPort.init);
+  ipcMain.on('ejectUSB', usbPort.eject);
 }
 
 function removeListeners() {

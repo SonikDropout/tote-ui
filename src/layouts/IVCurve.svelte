@@ -53,7 +53,7 @@
     isActive = true;
     points = [];
     chart.data.datasets[0].data = points;
-    ipcRenderer.send('startLog', ['U, B', 'I, A']);
+    ipcRenderer.send('startLog', ['U, мВ', 'I, мА']);
   }
 
   function getIVC() {
