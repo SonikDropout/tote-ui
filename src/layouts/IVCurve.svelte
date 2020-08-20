@@ -38,7 +38,7 @@
     data.subscribe(data => {
       if (data.cellCurrent) {
         if (!isActive) startDrawing();
-        addPoint({ x: data.cellVoltage, y: data.cellCurrent });
+        addPoint({ y: data.cellVoltage, x: data.cellCurrent });
       } else if (isActive) isActive = false;
     });
   }
@@ -53,7 +53,7 @@
     isActive = true;
     points = [];
     chart.data.datasets[0].data = points;
-    ipcRenderer.send('startLog', ['U, мВ', 'I, мА']);
+    ipcRenderer.send('startLog', ['I, mA', 'U, mV']);
   }
 
   function getIVC() {
