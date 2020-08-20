@@ -27,7 +27,7 @@ module.exports = {
           type: 'linear',
           scaleLabel: {
             display: true,
-            labelString: 'I, A',
+            labelString: 'I, mA',
           },
           ticks: {
             maxTickLimit: 8,
@@ -40,7 +40,7 @@ module.exports = {
           type: 'linear',
           scaleLabel: {
             display: true,
-            labelString: 'U, B',
+            labelString: 'U, mV',
           },
           ticks: {
             maxTickLimit: 8,
