@@ -5,6 +5,7 @@ const logger = require('./utils/logger');
 const usbPort = require('./utils/usbPort');
 const { app, BrowserWindow, ipcMain } = electron;
 const { DATA } = require('./constants');
+const { exec } = require('child_process');
 const checkUpdate = require('./utils/updater');
 
 let win, serial, usbPath, updateAvailable;
