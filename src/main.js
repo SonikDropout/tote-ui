@@ -5,8 +5,9 @@ const logger = require('./utils/logger');
 const usbPort = require('./utils/usbPort');
 const { app, BrowserWindow, ipcMain } = electron;
 const { DATA } = require('./constants');
+const checkUpdate = require('./utils/updater');
 
-let win, serial, usbPath;
+let win, serial, usbPath, updateAvailable;
 
 let initialData = JSON.parse(JSON.stringify(DATA));
 for (let key in initialData) initialData[key] = 0;
@@ -34,6 +35,20 @@ function initPeripherals() {
   serial = require(`./utils/${isPi ? 'serial' : 'DataGenerator'}`);
   addPeripheralsListeners();
   listenRenderer();
+  initUpdater();
+}
+
+function initUpdater() {
+  checkUpdate().then((isUpdatable) => {
+    if (isUpdatable) win.webContents.send('updateAvailable');
+    updateAvailable = isUpdatable;
+  });
+  ipcMain.on('checkUpdate', (e) => (e.returnValue = updateAvailable));
+  ipcMain.on('updateProgramm', () =>
+    exec('~/tote-ui/scripts/update.sh', (err) => {
+      if (err) console.error(err.message);
+    })
+  );
 }
 
 function listenRenderer() {
