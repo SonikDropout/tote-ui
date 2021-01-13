@@ -10,6 +10,7 @@
   import RangeInput from '../molecules/RangeInput';
   import { ipcRenderer } from 'electron';
   import { DATA, COMMANDS, CONSTRAINTS } from '../constants';
+  import { __ } from '../utils/translations';
   export let chart;
 
   const displayedParams = [
@@ -66,17 +67,17 @@
 </script>
 
 <div class="layout">
-  <header>Характеристики работы стенда</header>
+  <header>{$__('operation characteristics')}</header>
   <main>
     <div class="params">
       {#each displayedParams as key}
         <div class="param">
-          <span class="label">{DATA[key].label}, {DATA[key].units}:</span>
+          <span class="label">{$__(DATA[key].label)}, {$__(DATA[key].units)}:</span>
           <strong class="value">{$data[key]}</strong>
         </div>
       {/each}
       <div class="param special">
-        <div class="centered-label">Установка температуры:</div>
+        <div class="centered-label">{$__('set temperature')}:</div>
         <RangeInput
           style="margin:auto"
           defaultValue={initialState.cellTemp}
@@ -86,8 +87,8 @@
           value={$data.cellTemp} />
       </div>
       <div class="param special">
-        <div class="centered-label">Время работы стенда:</div>
-      <Clock />
+        <div class="centered-label">{$__('elapsed time')}:</div>
+        <Clock />
       </div>
     </div>
     <div class="chart">
@@ -96,7 +97,7 @@
   </main>
   <footer>
     <Button on:click={getIVC} style="margin-left: auto; margin-right: 1.6rem;">
-      Снять ВАХ
+      {$__('get IVC')}
     </Button>
     <SaveButton disabled={!points.length && !isActive} />
   </footer>

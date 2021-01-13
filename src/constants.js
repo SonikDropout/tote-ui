@@ -12,89 +12,89 @@ DIVIDERS.writeUInt16BE(8887, 2);
 
 const DATA = {
   cellVoltage: {
-    label: 'Напряжение',
-    units: 'мВ',
+    label: 'voltage',
+    units: 'mV',
     symbol: 'U',
 
     bytes: 2,
   },
   cellCurrent: {
-    label: 'Ток',
-    units: 'мА',
+    label: 'current',
+    units: 'mA',
     symbol: 'I',
 
     bytes: 2,
   },
   fuelConsumption: {
-    label: 'Расход топлива',
-    units: 'мл/мин',
+    label: 'fuel consumption',
+    units: 'ml/min',
 
     bytes: 2,
   },
   cellTemp: {
-    label: 'Температура ячейки',
+    label: 'cell temperature',
     units: '\u02daC',
 
     bytes: 2,
   },
   riformerTemp: {
-    label: 'Температура',
+    label: 'temperature',
     units: '\u02daC',
 
     bytes: 2,
   },
   burnerTemp: {
-    label: 'Температура',
+    label: 'temperature',
     units: '\u02daC',
 
     bytes: 2,
   },
   setCellTemp: {
-    label: 'Установка температуры ячейки',
+    label: 'set cell temperature',
     units: '\u02daC',
     bytes: 2,
   },
   setRiformerTemp: {
-    label: 'Установка температуры риформера',
+    label: 'set riformer temperature',
     units: '\u02daC',
     bytes: 2,
   },
   setBurnerTemp: {
-    label: 'Установка температуры дожигателя',
+    label: 'set burner temperature',
     units: '\u02daC',
     bytes: 2,
   },
   riformerAirFlow: {
-    label: 'Поток воздуха',
+    label: 'air flow',
     units: '%',
 
     bytes: 1,
   },
   burnerAirFlow: {
-    label: 'Поток воздуха',
+    label: 'air flow',
     units: '%',
 
     bytes: 1,
   },
   fuel: {
-    label: 'Топливо',
+    label: 'fuel',
 
     bytes: 1,
   },
   cellLoad: {
-    label: 'Мощность нагревателя ячейки',
+    label: 'cell power',
     units: '%',
 
     bytes: 1,
   },
   riformerLoad: {
-    label: 'Мощность нагревателя риформера',
+    label: 'riformer power',
     units: '%',
 
     bytes: 1,
   },
   burnerLoad: {
-    label: 'Мощность нагревателя дожигателя',
+    label: 'burner power',
     units: '%',
 
     bytes: 1,
@@ -103,11 +103,11 @@ const DATA = {
 
 const FUELS = [
   {
-    label: 'Водород',
+    label: 'hydrogen',
     value: 0,
   },
   {
-    label: 'Бутан',
+    label: 'butane',
     value: 1,
   },
 ];
